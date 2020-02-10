@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: cloud-api-gateway
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        max-attempts: 20
+
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      uri: http://localhost:8866
+
+---
+spring:
+  profiles: docker
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URI}

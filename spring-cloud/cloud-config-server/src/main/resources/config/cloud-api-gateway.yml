@@ -1,0 +1,51 @@
+eureka:
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+ribbon:
+  # zuul timeout for service discovery
+  ReadTimeout: 60000
+  SocketTimeout: 60000
+  okhttp:
+    enabled: true
+zuul:
+  host:
+    #timeout for zuul url
+    connect-timeout-millis: 60000 # starting the connection
+    socket-timeout-millis: 60000  # monitor the continuous incoming data flow
+  #fix Zuul sensitive header/cookie
+  sensitiveHeaders:
+  routes:
+    service-catalog:
+      stripPrefix: true  # remove prefix before forward, exam: localhost:8890/api/catalog/api/test -> localhost:8081/api/test
+      path: /api/catalog/**
+      serviceId: service-catalog
+    service-user:
+      stripPrefix: true
+      path: /api/user/**
+      serviceId: service-user
+#    authen-author-api:
+#      stripPrefix: true
+#      sensitiveHeaders: Cookie,Set-Cookie
+#      path: /api/auth/**
+#      serviceId: lms-authen-author-service
+  semaphore:
+    max-semaphores: 5000
+
+management.security.enabled: false
+management.endpoints.web.exposure.include: "*" # Need to use /actuator/routes. It is also not enabled by default.
+
+---
+spring:
+  profiles: local
+
+server:
+  port: 8890
