@@ -1,5 +1,5 @@
 eureka:
-  uri: http://localhost:8761/eureka/
+  uri: http://localhost:8761/
   instance.preferIpAddress: true
   client:
     healthcheck:
@@ -7,4 +7,4 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
   server:
-    eviction-interval-timer-in-ms: 1000
+    eviction-interval-timer-in-ms: 10000
